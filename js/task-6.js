@@ -13,7 +13,7 @@ const parent = document.querySelector("#boxes");
 generateBtn.addEventListener("click", () => {
   const inputValue = +document.querySelector("#controls > input").value;
 
-  if (inputValue < 1 || inputValue >= 100) return false;
+  if (inputValue < 1 || inputValue > 100) return false;
 
   createBoxes(inputValue);
 });
@@ -28,15 +28,21 @@ const createBoxes = (amount) => {
 
   let dynamicDimensions = 30;
 
+  const boxesArray = [];
+
   for (let i = 1; i <= amount; i++) {
-    const box = document.createElement("div");
-    box.style.width = dynamicDimensions + "px";
-    box.style.height = dynamicDimensions + "px";
-    box.style.backgroundColor = getRandomHexColor();
-    parent.appendChild(box);
+    const box = `
+      <div style="
+        width: ${dynamicDimensions}px;
+        height: ${dynamicDimensions}px;
+        background-color: ${getRandomHexColor()}">
+      </div>
+    `;
+    boxesArray.push(box);
 
     dynamicDimensions += 10;
   }
+  parent.innerHTML = boxesArray.join("");
   input.value = "";
 };
 
